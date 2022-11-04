@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+<main class="container py-5">
+  <section class="card card-body">
+    <h1 class="display-1 text-center">Prueba Tecnica</h1>
+    <p>
+      Se debe desarrollar un sistema web, el cual permita, con un inicio de
+      sesión administrado, acceder a un módulo de gestión de equipos y un módulo
+      de ejecución y estadísticas. El módulo de gestión de equipos debe permitir
+      crear, leer, actualizar y eliminar equipos. Los equipos deben tener un
+      nombre y una dirección IPV4, además de cualquier otro campo que le parezca
+      pertinente.
+    </p>
+    <p>
+      Prueba Técnica Fullstack Developer El módulo de ejecución y estadísticas
+      debe permitir hacer una prueba de latencia (hacer ping) a cada equipo
+      registrado en el sistema para saber si la dirección IP del equipo responde
+      correctamente. El dato de que si el equipo responde o no a la prueba de
+      latencia debe ser guardado para generar estadísticas y mostrar la
+      información resultante. Adicionalmente, se debe guardar un histórico de
+      todas las pruebas de latencia hechas por equipo.
+    </p>
+    {% if user.is_authenticated %} {% else %}
+    <div class="text-center">
+      <a class="btn btn-success" href="/signin">Iniciar Sesión</a>
+      <a class="btn btn-primary" href="/signup">Registrarse</a>
+    </div>
+
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

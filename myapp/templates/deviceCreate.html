@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+
+<main class="container py-5">
+  <div class="row">
+    <div class="col-md-6 offset-3">
+      <form action="/device/create/" method="POST" class="card card-body">
+        <h1 class="display-1 text-center">Create Device</h1>
+
+        {{error}} {% csrf_token %}
+        <div class="mb-3">
+          <label for="name">Nombre:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            placeholder="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="ipAdress">IPV4:</label>
+          <input
+            type="text"
+            name="ipAdress"
+            id="ipAdress"
+            class="form-control"
+            placeholder="ipAdress"
+          />
+        </div>
+        <button class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-6">
+      <div class="bg-white">
+        <h2>Dispositivos que conectan</h2>
+        <canvas id="conecta" width="400" height="300"></canvas>
+        <script>
+          var ctx = document.getElementById("conecta").getContext("2d");
+          var myChart1 = new Chart(ctx, {
+            type: "pie",
+            data: {
+              labels: ["Conectan", "No conectan"],
+              datasets: [
+                {
+                  label: "Products",
+                  data: [{{conectan}},{{noConectan}}],
+                  backgroundColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                  ],
+                  borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+            },
+          });
+        </script>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="bg-white">
+        <h2>Cantidad de Pruebas por dispositivo</h2>
+        <canvas id="myChart" width="400" height="300"></canvas>
+        <script>
+          var ctx = document.getElementById("myChart").getContext("2d");
+          var myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: [{%  for equipo in equipos %} '{{equipo.name}}', {% endfor %}],
+              datasets: [
+                {
+                  label: "Products",
+                  data: [{%  for equipo in equipos %} '{{equipo.equiposRepetido}}', {% endfor %}],
+                  backgroundColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                  ],
+                  borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+            },
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="container mt-5">
+  <div class="container">
+    <div class="row">
+      <h1 class="display-3">Historial de Pruebas de Latencia</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Equipo</th>
+            <th scope="col">IPV4</th>
+            <th scope="col">Resultado de la Prueba</th>
+            <th scope="col">Fecha de Prueba</th>
+            <th scope="col">Usuario que realizo la prueba</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pingTest in pingTests %}
+          <tr>
+            <th>{{pingTest.device.name}}</th>
+            <td>{{pingTest.device.ipAdress}}</td>
+            <td>{{pingTest.result}}</td>
+            <td>{{pingTest.dateTest}}</td>
+            <td>{{pingTest.user}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
